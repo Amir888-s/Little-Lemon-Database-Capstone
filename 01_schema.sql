@@ -1,0 +1,8 @@
+CREATE DATABASE IF NOT EXISTS LittleLemonDB CHARACTER SET utf8mb4;
+USE LittleLemonDB;
+CREATE TABLE IF NOT EXISTS Customers (CustomerID VARCHAR(30) PRIMARY KEY, CustomerName VARCHAR(150) NOT NULL, City VARCHAR(100), Country VARCHAR(100), PostalCode VARCHAR(30), CountryCode VARCHAR(10));
+CREATE TABLE IF NOT EXISTS MenuItems (MenuItemID INT PRIMARY KEY, CourseName VARCHAR(150), CuisineName VARCHAR(100), StarterName VARCHAR(150), DessertName VARCHAR(150), Drink VARCHAR(150), Sides VARCHAR(150));
+CREATE TABLE IF NOT EXISTS Orders (OrderID VARCHAR(30) PRIMARY KEY, CustomerID VARCHAR(30) NOT NULL, OrderDate DATE, DeliveryDate DATE, FOREIGN KEY(CustomerID) REFERENCES Customers(CustomerID));
+CREATE TABLE IF NOT EXISTS OrderItems (OrderItemID INT PRIMARY KEY, OrderID VARCHAR(30) NOT NULL, MenuItemID INT NOT NULL, Quantity INT NOT NULL, Cost DECIMAL(12,2), Sales DECIMAL(12,2), Discount DECIMAL(10,2), DeliveryCost DECIMAL(12,2), FOREIGN KEY(OrderID) REFERENCES Orders(OrderID), FOREIGN KEY(MenuItemID) REFERENCES MenuItems(MenuItemID));
+CREATE TABLE IF NOT EXISTS Bookings (BookingID INT AUTO_INCREMENT PRIMARY KEY, BookingDate DATE NOT NULL, TableNumber INT NOT NULL, CustomerID VARCHAR(30), FOREIGN KEY(CustomerID) REFERENCES Customers(CustomerID), UNIQUE KEY uq_booking_table_date (BookingDate,TableNumber));
+CREATE OR REPLACE VIEW SalesSummary AS SELECT c.Country, m.CuisineName, SUM(oi.Sales) TotalSales, SUM(oi.Quantity) TotalQuantity FROM OrderItems oi JOIN Orders o ON oi.OrderID=o.OrderID JOIN Customers c ON o.CustomerID=c.CustomerID JOIN MenuItems m ON oi.MenuItemID=m.MenuItemID GROUP BY c.Country,m.CuisineName;

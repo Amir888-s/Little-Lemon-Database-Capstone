@@ -1,0 +1,30 @@
+erDiagram
+ CUSTOMERS ||--o{ ORDERS : places
+ ORDERS ||--o{ ORDER_ITEMS : contains
+ MENU_ITEMS ||--o{ ORDER_ITEMS : includes
+ CUSTOMERS ||--o{ BOOKINGS : reserves
+ CUSTOMERS { string CustomerID PK
+ string CustomerName
+ string City
+ string Country
+ }
+ ORDERS { string OrderID PK
+ string CustomerID FK
+ date OrderDate
+ date DeliveryDate
+ }
+ MENU_ITEMS { int MenuItemID PK
+ string CourseName
+ string CuisineName
+ }
+ ORDER_ITEMS { int OrderItemID PK
+ string OrderID FK
+ int MenuItemID FK
+ int Quantity
+ decimal Sales
+ }
+ BOOKINGS { int BookingID PK
+ string CustomerID FK
+ date BookingDate
+ int TableNumber
+ }

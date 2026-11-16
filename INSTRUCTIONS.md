@@ -1,0 +1,2 @@
+# Tableau analysis
+Open `../data/tableau_source.csv` in Tableau Desktop. Build sheets: Sales by Country (Country geographic map, SUM(Sales)); Sales by Cuisine (Cuisine Name and SUM(Sales)); Monthly Sales Trend (MONTH(Order Date), SUM(Sales)); Booking/Order Summary (COUNTD(Order ID), SUM(Quantity)). Combine sheets into a dashboard, set Country as filter for all sheets. Save as `.twbx` and take screenshots. Note: workbook source is historical orders; it does not contain bookings, and no live Tableau workbook has been generated.
